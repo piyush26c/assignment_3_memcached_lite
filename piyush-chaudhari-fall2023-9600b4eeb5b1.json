@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "piyush-chaudhari-fall2023",
+  "private_key_id": "9600b4eeb5b1006c73533dbdcd1151b60fd4e444",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCJhIQn8xf7rjRh\nZkuqETJqy9tJCTXAYONBWxC0FLuRET/E1oEsXpQu2ww6ERV2qTO8qBjQ2/wgs8X+\n8GPG+LP0gqqe/7E/2WKqm/9Ue250jfHTp18+V1p+/Zfrzq00rLjzj0kSHTkR6+s1\nXoJ5uK3QLGfBDF2/+/UdncN4mYVPiAaMgwp5R2jkpj6vuUACIrtA4rMqQV7vzzxi\ntKYCpgCkiPQQ+F3fz1BvxIQ0c6cHvKHEeBSyqo3BkXaCNRdCKu5fg5Y6XdyS9ktW\nVUZyoE4hho2MalgH7D24L8ljUtJCleSUgPtHiVs8S+wrym7b6pYEXd3rOK5Xv2PG\nYTSvu1fnAgMBAAECggEAFcHqqutyUva4AOUPeaPo5y7DziVv5LUvn4qJ9QQGvSgO\nf9U0cNGx/kvX/mPvkmuo7ONnsbvsgzwOSoy8LKHyzu/RkQCBicmaK8YsurAgxL4k\nkck8b3+gqND0tXFoxBnD1X1JIV2QRv6doz8Fw75tea9c5xVOy+5QVNQ+NhmMFw4C\nHrzsSOlRMQ6n7bzuSwJjuiLbUr5USQZ7qTWGV70gJydR4sUxHYRWBmGXNVEk2Ywo\nhCYlZ8vUUcNLRAUNBQsEDEqHQeMTud/Ip5YhoQN7spRtJi5N954RFqP7zvJPJ8qE\nBoitGjyuEsb7qmOTvIXfeVlnsw2dcl1oeRgMNTY0QQKBgQDAkBV4DsClifFajnYa\nKJek1Y5DMtRSJ13yd+FEwy6s0Wl7XUwKIrU6RikqwcyFRT13oE1ASdlmYaDnBi1g\n/StBUX4sUR7F5syCqQgf6APOcm9am1UeCouZA21sOrTin1IKU6hKjWBTtPIPyiPi\nSny82Gk0CV0jPATUh9dcLxWfYQKBgQC20ijQBOqaT981WNDi8bJscoZMOgugY73u\nWn1GmhzLrss1AKB0XCluA0yNZU/mz2JZ24QXZF4AZqPTkaZcxQjunwFZ5wQkDh3S\nRZaYTf9DBYYPJwRijkBoJrjGA7Q6S3RYooxPxpWN8utkNgToQq5Psq+7FEPElbIl\nBRla8+KkRwKBgFXeqsQ8B+qKBgf06XOm0GDgHq2WuBnelkVu8hTA2UqVo+0wYJ1Q\ndvKCoQ8BFxwDEXMMGAboJ7tBJAiBt7C9lRFurs5Cam+kCWTmzcm0pCXm4ANOq3lX\nCIN2hNAzqcA5fdM/FRgRzXfmg99IrBHYV6G6+8cJue/hbuH7pazlDkZhAoGBAKF4\nLrnDjd1q7A62+g9nP5pO8FSE893eGlNZssnXtdUj9bBDdHQxLhpPaZ58u7x0sD4D\nBsCOUgPyo4FqY9AN6pyu7UeVJXAe07Hy6lZslSaBy2y4nkPZtgMHKC0j+lt+Zy0d\nq+WN1GtCAStKFr14n3IetNz7wfrv6B6QSVuuih9jAoGAaBEQej2+lvSBowA9qlEJ\ns8mV6pQIwXqe1sHX/kf3MfMqb/kTG9Vyt3DxhLeEfKc5tARnyR4p5HQYYVYwt432\nRvAEtXBwzTHEgwhJjA1HseB2bjog6aUAlaC2XqsHFAgsxcpBTylwt/scrbwwCA+J\nfFUKjYOb6E+Y+ugYcoImqBg=\n-----END PRIVATE KEY-----\n",
+  "client_email": "googlecloudstorage@piyush-chaudhari-fall2023.iam.gserviceaccount.com",
+  "client_id": "104752899395919909170",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/googlecloudstorage%40piyush-chaudhari-fall2023.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

@@ -3,48 +3,63 @@ import threading
 import json
 import os
 import sys
+from google.cloud import storage
 
-class FileIO:
-    def __init__(self, file_name) -> None:
+class GoogleCloudStorageFileIO:
+    def __init__(self, file_name, bucket_name="eccassignment") -> None:
         self.file_name = file_name
+        self.bucket_name = bucket_name
+         # Create a client for interacting with the GCP Storage API, using the ServiceAccount key file
+        self.gcsclient = storage.Client.from_service_account_json('piyush-chaudhari-fall2023-9600b4eeb5b1.json')
+        self.bucket = None
+        self.blob = None
+        
         # create empty JSON file, if not present on disk.
         if not os.path.isfile(file_name):
             with open(file_name, 'w') as f:
                 json.dump({}, f)
 
+            with open(file_name, 'rb') as f:
+                contents = f.read()
+
+            # Creates the new bucket
+            self.bucket= self.gcsclient.get_bucket(self.bucket_name)
+            if not self.bucket:
+                self.bucket = self.gcsclient.create_bucket(self.bucket_name, location='US-EAST1')
+
+            # Creates new blob object
+            self.blob = self.bucket.blob(file_name)
+            self.blob.upload_from_string(contents)
+        else:
+            self.bucket= self.gcsclient.get_bucket(self.bucket_name)
+            self.blob = self.bucket.get_blob(file_name)
+
     def save_to_file(self, key, value):
-        try:
-            data = None
-            with open(self.file_name, 'r') as file:
-                data = json.load(file)
-                data[key] = value
-                
-            with open(self.file_name, 'w') as file:
-                json.dump(data, file, indent=4)
-        except IOError as error:
-            print("Error occured in saving data to file!", self.file_name)
-            print("Error logs: \n", error)
+        self.blob = self.bucket.get_blob(self.file_name)
+        json_data_string = self.blob.download_as_string()
+        json_data = json.loads(json_data_string.decode("utf-8"))
+        json_data[key] = value
+        
+        #save to file in blob
+        self.gcsclient.get_bucket(self.bucket_name).blob(self.file_name).upload_from_string(json.dumps(json_data, indent=4).encode("utf-8"))
 
     def read_from_file(self, to_get_key):
-        try:
-            with open(self.file_name, 'r') as file:
-                data = json.load(file)
-                if to_get_key in data.keys():
-                    return data[to_get_key]
-                return ""
-        except IOError as error:
-            print("Error occured while reading data from", self.file_name)
-            print("Error logs: \n", error)
-            return []
+        self.blob = self.bucket.get_blob(self.file_name)
+        json_data_string = self.blob.download_as_string()
+        json_data = json.loads(json_data_string.decode("utf-8"))
+        if to_get_key in json_data.keys():
+            return json_data[to_get_key]
+        
+        return ""
 
-class Server(FileIO):
-    def __init__(self, port_no, file_name="key_value.json", max_clients=5, max_key_size_bytes=1024):
+class Server(GoogleCloudStorageFileIO):
+    def __init__(self, port_no, bucket_name="eccassignment", file_name="key_value.json", max_clients=5, max_key_size_bytes=1024):
         self.port_no = port_no
-        self.host_name = socket.gethostname()
+        self.host_name = "0.0.0.0" #socket.gethostname()
         self.max_clients = max_clients
         self.file_name = file_name
         self.max_key_size_bytes = max_key_size_bytes
-        self.fileIO = FileIO(file_name=file_name)
+        self.GoogleCloudStorageFileIO = GoogleCloudStorageFileIO(file_name=file_name, bucket_name=bucket_name)
         self.lock = threading.Lock()
 
     def connect_to_client(self, client_connection):
@@ -55,11 +70,10 @@ class Server(FileIO):
                 break
 
             parts = request.split()
-            
             if parts[0] == 'get':
                 key = parts[1]
                 with self.lock:
-                    value = self.fileIO.read_from_file(key)
+                    value = self.GoogleCloudStorageFileIO.read_from_file(key)
                     if len(value) > 0:
                         response = f"VALUE {key} {len(value)}\r\n{value}\r\nEND\r\n"
                     else:
@@ -70,12 +84,14 @@ class Server(FileIO):
                 value_size = int(parts[2])
                 value = client_connection.recv(value_size).decode('utf-8').strip()
                 with self.lock:
-                    self.fileIO.save_to_file(key, value)
+                    self.GoogleCloudStorageFileIO.save_to_file(key, value)
                 response = "STORED\r\n"
+                
             else:
                 response = "NOT-STORED\r\n"
             
             client_connection.send(response.encode('utf-8'))
+                
         client_connection.close()
     
     def excecute_server(self):
@@ -105,6 +121,6 @@ if __name__ == '__main__':
         server_obj = Server(port_no=port_no, file_name=file_name, max_clients=max_clients, max_key_size_bytes=max_key_size_bytes)
         server_obj.excecute_server()
     else:
-        print("Inappropriate number of arguments (eg. python3 server.py <port_number> <max_clients_that_can_wait_in_queue_if_server_busy> <file_name> <max_key_size_in_bytes>)")
+        print("Inappropriate number of arguments (eg. python3 server.py <port_number> <max_clients_that_can_wait_in_queue_if_server_busy> <file_name> <max_key_size_in_bytes> <bucket_name>)")
     
 # npx kill-port <port-no>
