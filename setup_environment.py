@@ -10,6 +10,8 @@ if current_version < required_version:
     print(f"Python version {current_version} is not compatible. Installing Python {required_version}...")
     subprocess.run(["sudo", "apt-get", "install", f"python{required_version}"])
 
+# Run the 'apt' command to install pip for Python 3
+subprocess.run(["sudo", "apt", "install", "python3-pip"], check=True)
 
 # Install requirements from requirements.txt
 subprocess.run(["pip", "install", "-r", "requirements.txt", "-v"])
