@@ -105,7 +105,7 @@ class Server(FileIO):
 
 if __name__ == '__main__':
     if len(sys.argv) == 5:
-        host_name = socket.gethostname()
+        host_name = "0.0.0.0" #socket.gethostname()
         port_no = int(sys.argv[1])
         max_clients = int(sys.argv[2])
         file_name = str(sys.argv[3])
