@@ -17,6 +17,7 @@ apt-get update
 
 # Command 3: Install pip
 apt-get install python3-pip
+echo "Y"
 
 # Command 4: Exit from root user shell
 # exit 
