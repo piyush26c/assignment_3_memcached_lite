@@ -7,7 +7,7 @@ if __name__ == '__main__':
     Check basic functionality by connecting two clients, you explicitly have to open two terminals and have to run this code.
     """
     if len(sys.argv) == 2:
-        host_name = socket.gethostname()
+        host_name = "34.134.39.121"#socket.gethostname()
         port = int(sys.argv[1])
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect((host_name, port))
