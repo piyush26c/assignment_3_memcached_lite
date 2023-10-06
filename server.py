@@ -40,7 +40,7 @@ class FileIO:
 class Server(FileIO):
     def __init__(self, port_no, file_name="key_value.json", max_clients=5, max_key_size_bytes=1024):
         self.port_no = port_no
-        self.host_name = socket.gethostname()
+        self.host_name = "0.0.0.0" #socket.gethostname()
         self.max_clients = max_clients
         self.file_name = file_name
         self.max_key_size_bytes = max_key_size_bytes
