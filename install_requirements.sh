@@ -10,7 +10,7 @@ if [ "$(printf '%s\n' "$required_version" "$current_version" | sort -V | head -n
 fi
 
 # Command 1: Switch to root user
-sudo -s
+# sudo -s
 
 # Command 2: Update the package list
 apt-get update
@@ -19,7 +19,7 @@ apt-get update
 apt-get install python3-pip
 
 # Command 4: Exit from root user shell
-exit
+# exit 
 
 # Install requirements from requirements.txt
 pip install -r requirements.txt -v
