@@ -26,7 +26,7 @@ if __name__ == '__main__':
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect((host_name, port))
 
-        number_of_clients = int(sys.argv[2])
+        number_of_clients = int(sys.argv[3])
         threads = []
 
         for i in range(number_of_clients):
