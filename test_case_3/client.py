@@ -6,8 +6,8 @@ if __name__ == '__main__':
     Test case - 03:
     Check what maximum key size (bytes), I can send over the server.
     """
-    if len(sys.argv) == 2:
-        host_name = socket.gethostname()
+    if len(sys.argv) == 3:
+        host_name = str(sys.argv[2])
         port = int(sys.argv[1])
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect((host_name, port))
@@ -26,4 +26,4 @@ if __name__ == '__main__':
 
         client_socket.close()
     else:
-        print("Inappropriate arguments passed. (eg. python3 client.py <port_number>)")
+        print("Inappropriate arguments passed. (eg. python3 client.py <port_number> <server_ip_address>)")

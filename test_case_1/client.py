@@ -6,9 +6,9 @@ if __name__ == '__main__':
     Test case - 01:
     Check basic functionality by connecting two clients, you explicitly have to open two terminals and have to run this code.
     """
-    if len(sys.argv) == 2:
+    if len(sys.argv) == 3:
         # host_name = "34.134.39.121"
-        host_name = socket.gethostname()
+        host_name = str(sys.argv[2])
         port = int(sys.argv[1])
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect((host_name, port))
@@ -27,4 +27,4 @@ if __name__ == '__main__':
 
         client_socket.close()
     else:
-        print("Inappropriate arguments passed. (eg. python3 client.py <port_number>)")
+        print("Inappropriate arguments passed. (eg. python3 client.py <port_number> <server_ip_address>)")

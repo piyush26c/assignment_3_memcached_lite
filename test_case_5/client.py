@@ -20,8 +20,8 @@ if __name__ == '__main__':
     Test case - 05:
     Check what maximum number of clients can be connected to server.
     """
-    if len(sys.argv) == 3:
-        host_name = socket.gethostname()
+    if len(sys.argv) == 4:
+        host_name = str(sys.argv[2])
         port = int(sys.argv[1])
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect((host_name, port))
@@ -42,4 +42,4 @@ if __name__ == '__main__':
             thread.join()
 
     else:
-        print("Inappropriate arguments passed. (eg. python3 client.py <port_number> <number_of_clients_connect_to_server>)")
+        print("Inappropriate arguments passed. (eg. python3 client.py <port_number> <server_ip_address> <number_of_clients_connect_to_server>)")
