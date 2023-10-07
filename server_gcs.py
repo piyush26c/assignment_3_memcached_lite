@@ -14,25 +14,38 @@ class GoogleCloudStorageFileIO:
         self.bucket = None
         self.blob = None
         
-        # create empty JSON file, if not present on disk.
-        if not os.path.isfile(file_name):
-            with open(file_name, 'w') as f:
-                json.dump({}, f)
-
-            with open(file_name, 'rb') as f:
-                contents = f.read()
-
-            # Creates the new bucket
-            self.bucket= self.gcsclient.get_bucket(self.bucket_name)
-            if not self.bucket:
+        # check first bucket exists and if yes, whether do file?
+        self.bucket= self.gcsclient.get_bucket(self.bucket_name)
+        if not self.bucket:
                 self.bucket = self.gcsclient.create_bucket(self.bucket_name, location='US-EAST1')
+                # Creates new blob object
+                self.blob = self.bucket.blob(file_name)
 
-            # Creates new blob object
-            self.blob = self.bucket.blob(file_name)
-            self.blob.upload_from_string(contents)
+                # Creates empty json file in blob storage
+                with open(file_name, 'w') as f:
+                    json.dump({}, f)
+
+                with open(file_name, 'rb') as f:
+                    contents = f.read()
+
+                self.blob.upload_from_string(contents)
         else:
             self.bucket= self.gcsclient.get_bucket(self.bucket_name)
-            self.blob = self.bucket.get_blob(file_name)
+            # Check if the bucket contains the file
+            if self.bucket.blob(self.file_name).exists():
+                self.blob = self.bucket.get_blob(file_name)
+            else:
+                # Creates new blob object
+                self.blob = self.bucket.blob(file_name)
+
+                # Creates empty json file in blob storage
+                with open(file_name, 'w') as f:
+                    json.dump({}, f)
+
+                with open(file_name, 'rb') as f:
+                    contents = f.read()
+
+                self.blob.upload_from_string(contents)
 
     def save_to_file(self, key, value):
         self.blob = self.bucket.get_blob(self.file_name)
