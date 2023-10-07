@@ -2,6 +2,8 @@ import sys
 import json
 import string
 import random
+import os
+import shutil
 
 def generate_random_string(size):
     # Define the characters you want to use
@@ -39,6 +41,14 @@ if __name__ == '__main__':
         # save data to json file and write it on disk
         with open(file_name, 'w') as file:
             json.dump(data, file, indent=4)
+
+        # logic to copy file in one directory above and delete generated file in current directory.
+        file_path = os.getcwd() + "/" + file_name
+        os.chdir("..")
+        folder_path = os.getcwd()
+        shutil.copy(file_path, folder_path)
+        os.remove(file_path)
+        
     else:
         print("Inappropriate number of arguments. (python3 data_generator.py <number_of_key_value_pairs> <minimum_key_size> <maximum_key_size> <minimum_value_size> <maximum_value_size>")
 
