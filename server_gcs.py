@@ -112,15 +112,16 @@ class Server(GoogleCloudStorageFileIO):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) == 5:
+    if len(sys.argv) == 6:
         host_name = "0.0.0.0" #socket.gethostname()
         port_no = int(sys.argv[1])
         max_clients = int(sys.argv[2])
         file_name = str(sys.argv[3])
         max_key_size_bytes = int(sys.argv[4])
-        server_obj = Server(port_no=port_no, file_name=file_name, max_clients=max_clients, max_key_size_bytes=max_key_size_bytes)
+        bucket_name = str(sys.argv[5])
+        server_obj = Server(port_no=port_no, file_name=file_name, max_clients=max_clients, max_key_size_bytes=max_key_size_bytes, bucket_name=bucket_name)
         server_obj.excecute_server()
     else:
-        print("Inappropriate number of arguments (eg. python3 server.py <port_number> <max_clients_that_can_wait_in_queue_if_server_busy> <file_name> <max_key_size_in_bytes> <bucket_name>)")
+        print("Inappropriate number of arguments (eg. python3 server_gcs.py <port_number> <max_clients_that_can_wait_in_queue_if_server_busy> <file_name> <max_key_size_in_bytes> <bucket_name>)")
     
 # npx kill-port <port-no>
