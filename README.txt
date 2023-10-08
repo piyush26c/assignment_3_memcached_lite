@@ -46,3 +46,7 @@ Important: At first sight before I created any VMs, I executed following command
 gcloud compute networks create default
 
 gcloud compute firewall-rules create default-allow --network default --allow tcp,udp,icmp --source-ranges 0.0.0.0/0
+
+I clone the repository in vms and then executed install_requirements.sh file.
+
+This whole process is automated in test_case_<number>.sh files which you can find in test_cases_bash_scripts folder not in this repository but separately in submission.
