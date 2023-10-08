@@ -15,7 +15,7 @@ def connect_to_client(client_id, host_name, port):
     response = client_socket.recv(9000).decode('utf-8')
     print(f"Client {client_id} received response: {response}")
     
-    client_socket.close()
+    
 
 
 if __name__ == '__main__':
@@ -43,6 +43,6 @@ if __name__ == '__main__':
         # Wait for all client threads to finish
         for thread in threads:
             thread.join()
-
+        client_socket.close()
     else:
         print("Inappropriate arguments passed. (eg. python3 client.py <port_number> <server_ip_address> <number_of_clients_connect_to_server>)")
