@@ -4,8 +4,7 @@ import sys
 if __name__ == '__main__':
     """
     Test case - 02:
-    Check basic functionality of memcached_lit along with concurrency (here connecting two clients), you explicitly have to open two terminals and have to run this code.
-    Here, I have added sleep time at server side before reading and writing (thus, changes done in code are on server side).
+    Check what maximum key size (bytes), I can send over the server.
     """
     if len(sys.argv) == 3:
         host_name = str(sys.argv[2])
@@ -22,7 +21,7 @@ if __name__ == '__main__':
                 command = input('Client Input: ')
                 client_socket.send(command.encode('utf-8'))
             
-            response = client_socket.recv(1024).decode('utf-8')
+            response = client_socket.recv(9000).decode('utf-8')
             print("Server Response:\n" + response)
 
         client_socket.close()

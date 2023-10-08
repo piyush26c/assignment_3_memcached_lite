@@ -9,17 +9,12 @@ if [ "$(printf '%s\n' "$required_version" "$current_version" | sort -V | head -n
     sudo apt-get install "python$required_version"
 fi
 
-# Command 1: Switch to root user
-# sudo -s
 
-# Command 2: Update the package list
+# Update the package list
 apt-get update
 
-# Command 3: Install pip
+# Install pip
 yes Y | apt-get install python3-pip
-
-# Command 4: Exit from root user shell
-# exit 
 
 # Install requirements from requirements.txt
 pip install -r requirements.txt -v

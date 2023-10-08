@@ -4,7 +4,7 @@ import sys
 if __name__ == '__main__':
     """
     Test case - 03:
-    Check what maximum key size (bytes), I can send over the server.
+    Check what maximum value size (bytes), I can send over the server.
     """
     if len(sys.argv) == 3:
         host_name = str(sys.argv[2])

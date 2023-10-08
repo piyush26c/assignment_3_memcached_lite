@@ -1,29 +1,45 @@
 import socket
 import sys
+import threading
+
+def connect_to_client(client_id, host_name, port):
+    
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket.connect((host_name, port))
+    
+    get_command = f"get key_{client_id}"
+    client_socket.send(get_command.encode('utf-8'))
+    response = client_socket.recv(1024).decode('utf-8')
+    print(f"Client {client_id} received response: {response}")
+    
+    client_socket.close()
+
 
 if __name__ == '__main__':
     """
     Test case - 04:
-    Check what maximum value size (bytes), I can send over the server.
+    Check what maximum number of clients can be connected to server.
     """
-    if len(sys.argv) == 3:
+    if len(sys.argv) == 4:
         host_name = str(sys.argv[2])
         port = int(sys.argv[1])
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect((host_name, port))
 
-        while True:
-            command = input('\nClient Input: ')
-            if command.lower().strip() == "exit":
-                break
-            client_socket.send(command.encode('utf-8'))
-            if command.split()[0] == "set":
-                command = input('Client Input: ')
-                client_socket.send(command.encode('utf-8'))
-            
-            response = client_socket.recv(9000).decode('utf-8')
-            print("Server Response:\n" + response)
+        number_of_clients = int(sys.argv[3])
+        threads = []
 
-        client_socket.close()
+        for i in range(number_of_clients):
+            client_thread_instance = threading.Thread(target=connect_to_client, args=(i, host_name, port))
+            threads.append(client_thread_instance)
+
+        # Start all client threads
+        for thread in threads:
+            thread.start()
+
+        # Wait for all client threads to finish
+        for thread in threads:
+            thread.join()
+
     else:
-        print("Inappropriate arguments passed. (eg. python3 client.py <port_number> <server_ip_address>)")
+        print("Inappropriate arguments passed. (eg. python3 client.py <port_number> <server_ip_address> <number_of_clients_connect_to_server>)")

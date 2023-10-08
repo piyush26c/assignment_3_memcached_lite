@@ -6,8 +6,8 @@ import sys
 import time
 
 """
-    Test case - 03:
-    Check what maximum key size (bytes), I can send over the server.
+    Test case - 04:
+    Check what maximum value size (bytes), I can send over the server.
 """
 
 class FileIO:
@@ -60,7 +60,8 @@ class Server(FileIO):
             if not request:
                 break
 
-            parts = request.split()                  
+            parts = request.split()
+                  
             if parts[0] == 'get':
                 key = parts[1]
                 with self.lock:

@@ -6,8 +6,8 @@ import sys
 import time
 
 """
-    Test case - 04:
-    Check what maximum value size (bytes), I can send over the server.
+    Test case - 05:
+    Check what maximum number of clients can be connected to server.
 """
 
 class FileIO:
